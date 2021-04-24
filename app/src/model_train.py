@@ -36,7 +36,8 @@ TEST_DATA_FILE = '_test_data.pkl'
 
 
 # ******** НИЖЕ НАПИШИТЕ КОД СЕРИАЛИЗАЦИИ МОДЕЛИ В ФАЙЛ MODEL_FILE
-# ........
+with open('MODEL_FILE', 'wb') as output:
+    pickle.dump(model, output)
 
 
 # Тестовую часть датасета сериализуем с помощью pickle для использования в дальнейшем
@@ -47,7 +48,8 @@ TEST_DATA_FILE = '_test_data.pkl'
 
 
 # ******** НИЖЕ НАПИШИТЕ КОД СЕРИАЛИЗАЦИИ ТЕСТОВЫХ ДАННЫХ В ФАЙЛ TEST_DATA_FILE
-# ........
+with open(TEST_DATA_FILE, 'wb') as output:
+    pickle.dump(model, output)
 
 
 # Сохраним в отдельный файл feature_order - порядок названий признаков в нашем датасете
@@ -57,4 +59,5 @@ print('Feature order:', feature_order)
 
 
 # ******** НИЖЕ НАПИШИТЕ КОД СЕРИАЛИЗАЦИИ feature_order В ФАЙЛ FEATURE_ORDER_FILE
-# ........
+with open(FEATURE_ORDER_FILE, 'wb') as output:
+    pickle.dump(model, output)
