@@ -1,3 +1,4 @@
 app/src/__pycache__/
 .idea
 *.pkl
+app/src/new_test_data.py

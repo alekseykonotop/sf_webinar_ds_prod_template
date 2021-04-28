@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from sklearn.datasets import fetch_california_housing
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
+import pickle
+import pandas as pd
 
 # Загружаем данные из датасета
 X, y = fetch_california_housing(return_X_y=True, as_frame=True)
@@ -36,7 +40,7 @@ TEST_DATA_FILE = '_test_data.pkl'
 
 
 # ******** НИЖЕ НАПИШИТЕ КОД СЕРИАЛИЗАЦИИ МОДЕЛИ В ФАЙЛ MODEL_FILE
-with open('MODEL_FILE', 'wb') as output:
+with open(MODEL_FILE, 'wb') as output:
     pickle.dump(model, output)
 
 
@@ -46,10 +50,11 @@ with open('MODEL_FILE', 'wb') as output:
 # python list/dict, numpy array и т.п., учитывая что
 # потом из тестовых данных нужно будет доставать признаки)
 
-
+# test_df = pd.concat([X_test, y_test], sort=False)
 # ******** НИЖЕ НАПИШИТЕ КОД СЕРИАЛИЗАЦИИ ТЕСТОВЫХ ДАННЫХ В ФАЙЛ TEST_DATA_FILE
 with open(TEST_DATA_FILE, 'wb') as output:
-    pickle.dump(model, output)
+    # pickle.dump(test_df, output)
+    pickle.dump(X_test, output)
 
 
 # Сохраним в отдельный файл feature_order - порядок названий признаков в нашем датасете
@@ -60,4 +65,4 @@ print('Feature order:', feature_order)
 
 # ******** НИЖЕ НАПИШИТЕ КОД СЕРИАЛИЗАЦИИ feature_order В ФАЙЛ FEATURE_ORDER_FILE
 with open(FEATURE_ORDER_FILE, 'wb') as output:
-    pickle.dump(model, output)
+    pickle.dump(feature_order, output)

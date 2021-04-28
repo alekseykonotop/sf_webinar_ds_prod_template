@@ -2,7 +2,8 @@ import requests
 
 
 def test_predict():
-    params = ['8740', '162', '', 'python', '-1', '168']
+    # params = ['8740', '162', '', 'python', '-1', '168']
+    params = ['8740', '162']
     responses = {
         '8740': {'obj_id': '8740', 'prediction': 2.478, 'response_status': 'OK'},
         '162': {'obj_id': '162', 'prediction': 2.4255, 'response_status': 'OK'},
