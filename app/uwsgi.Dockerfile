@@ -6,7 +6,6 @@ WORKDIR /usr/app/
 # копируем папку src в контейнер
 # Обучаем модель, сериализуем объекты запуском скрипта model_train.py
 
-
 # ******** НИЖЕ НАПИШИТЕ КОД ВЫПОЛНЯЮЩИЙ 3 ДЕЙСТВИЯ ОПИСАННЫЕ ВЫШЕ
 # Копируем файл requirements.txt в контейнер и установим python зависимости
 COPY requirements.txt ./app_requirements/requirements.txt
