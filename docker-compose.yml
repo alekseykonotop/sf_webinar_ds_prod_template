@@ -5,7 +5,10 @@ services:
     # Присваеваем имя контейнера "flask_app"
 
     # ******** НИЖЕ НАПИШИТЕ КОД ВЫПОЛНЯЮЩИЙ 2 ДЕЙСТВИЯ ОПИСАННЫЕ ВЫШЕ
-    ## ........
+    build:
+      context: ./app
+      dockerfile: uwsgi.Dockerfile
+    container_name: flask_app
 
 
   nginx_server:
@@ -14,5 +17,15 @@ services:
     # Присваеваем имя контейнера "nginx_server"
 
     # ******** НИЖЕ НАПИШИТЕ КОД ВЫПОЛНЯЮЩИЙ 3 ДЕЙСТВИЯ ОПИСАННЫЕ ВЫШЕ
-    ## ........
+    build:
+      context: ./nginx
+    ports:
+      - 8000:8000
+    container_name: nginx_server
+
+
+# 1. Перейти в директорию, содержащию поддиректорию app
+# 2. Start the docker-compose
+# sudo docker-compose up --build
+
 

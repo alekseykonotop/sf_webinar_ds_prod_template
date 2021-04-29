@@ -111,7 +111,7 @@ def predict():
                         'prediction': pred,
                         'response_status': 'OK'}), 200
     except:
-        return jsonify({'obj_id': obj_id,
+        return jsonify({'obj_id': str(obj_id),
                         'prediction': -1.0,
                         'response_status': 'ERROR'}), 200
      
