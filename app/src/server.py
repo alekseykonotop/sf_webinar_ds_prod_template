@@ -100,19 +100,20 @@ def hello_check():
 @app.route('/predict', methods=['GET',])
 def predict():
     obj_id = request.args.get('obj_id')
-    if not obj_id or not obj_id.isdigit() or int(obj_id)<=0:
+    try:
+        obj_id = int(obj_id)
+        data = test_data_df[test_data_df['obj_id'] == obj_id].drop(labels='obj_id', axis=1).to_numpy().reshape((1, -1))
+        print(f"DATA= {data}\n")
+        pred = np.round(model.predict(data)[0], 4)
+        print(f"PREDICTION= {pred}\n")
+
+        return jsonify({'obj_id': str(obj_id),
+                        'prediction': pred,
+                        'response_status': 'OK'}), 200
+    except:
         return jsonify({'obj_id': obj_id,
                         'prediction': -1.0,
                         'response_status': 'ERROR'}), 200
-    obj_id = int(obj_id)
-    data = test_data_df[test_data_df['obj_id'] == obj_id].drop(labels='obj_id', axis=1).to_numpy().reshape((1, -1))
-    print(f"DATA= {data}\n")
-    pred = np.round(model.predict(data)[0], 4)
-    print(f"PREDICTION= {pred}\n")
-
-    return jsonify({'obj_id': str(obj_id),
-                    'prediction': pred,
-                    'response_status': 'OK'}), 200
      
 
 
