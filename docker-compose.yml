@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  flask_app:
+  solution:
     # Собираем контейнер с приложением с помощью uwsgi.Dockerfile
     # Присваеваем имя контейнера "flask_app"
 
@@ -8,7 +8,7 @@ services:
     build:
       context: ./app
       dockerfile: uwsgi.Dockerfile
-    container_name: flask_app
+    container_name: solution
 
 
   nginx_server:
@@ -20,8 +20,20 @@ services:
     build:
       context: ./nginx
     ports:
-      - 8000:8000
+      - 5000:5000
     container_name: nginx_server
+    restart: always
+    depends_on:
+      - solution
+
+
+  checker:
+    image: mike0sv/sf_docker_check
+    container_name: checker
+    restart: always
+    depends_on:
+      - solution
+      - nginx_server
 
 
 # 1. Перейти в директорию, содержащию поддиректорию app

@@ -18,7 +18,7 @@ COPY src ./src
 RUN python ./src/model_train.py
 
 # Запускаем Flask приложение через uwsgi
-CMD uwsgi --http 0.0.0.0:8000 --wsgi-file ./src/server.py --callable app --processes 2 --master
+CMD uwsgi --http 0.0.0.0:5000 --wsgi-file ./src/server.py --callable app --processes 2 --master
 
 # 1. Move to app directory
 # cd <project_directory>/app/

@@ -52,7 +52,7 @@ with open(TEST_DATA_FILE, 'rb') as pkl_file:
 
 
 # ******** НИЖЕ НАПИШИТЕ КОД FLASK МЕТОДА ДЛЯ ПРОВЕРКИ РАБОТЫ СЕРВЕРА
-@app.route('/hello/', methods=['GET'])
+@app.route('/hello', methods=['GET'])
 def hello_check():
     param = request.args.get('param')
     
@@ -97,25 +97,32 @@ def hello_check():
 
 
 # ******** НИЖЕ НАПИШИТЕ КОД FLASK МЕТОДА ДЛЯ ПРЕДИКТА ОБУЧЕННОЙ МОДЕЛЬЮ
-@app.route('/predict', methods=['GET',])
+@app.route('/predict', methods=['POST',])
 def predict():
-    obj_id = request.args.get('obj_id')
-    try:
-        obj_id = int(obj_id)
-        data = test_data_df[test_data_df['obj_id'] == obj_id].drop(labels='obj_id', axis=1).to_numpy().reshape((1, -1))
-        print(f"DATA= {data}\n")
-        pred = np.round(model.predict(data)[0], 4)
-        print(f"PREDICTION= {pred}\n")
+    numbers = request.json
+    pred = model.predict(numbers)[0]
+    return jsonify({'prediction': pred}), 200
 
-        return jsonify({'obj_id': str(obj_id),
-                        'prediction': pred,
-                        'response_status': 'OK'}), 200
-    except:
-        return jsonify({'obj_id': str(obj_id),
-                        'prediction': -1.0,
-                        'response_status': 'ERROR'}), 200
+
+
+
+    # obj_id = request.args.get('obj_id')
+    # try:
+    #     obj_id = int(obj_id)
+    #     data = test_data_df[test_data_df['obj_id'] == obj_id].drop(labels='obj_id', axis=1).to_numpy().reshape((1, -1))
+    #     print(f"DATA= {data}\n")
+    #     pred = np.round(model.predict(data)[0], 4)
+    #     print(f"PREDICTION= {pred}\n")
+
+    #     return jsonify({'obj_id': str(obj_id),
+    #                     'prediction': pred,
+    #                     'response_status': 'OK'}), 200
+    # except:
+    #     return jsonify({'obj_id': str(obj_id),
+    #                     'prediction': -1.0,
+    #                     'response_status': 'ERROR'}), 200
      
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=8000, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True)
